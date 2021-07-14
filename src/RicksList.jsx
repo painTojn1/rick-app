@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Character from "./Character";
+import { Link } from "react-router-dom";
 
 const RicksList = () => {
   //const { id } = props;
@@ -41,15 +42,17 @@ const RicksList = () => {
       ))} */}
 
         {all.map((rick) => (
-          <Character
-            id={rick.id}
-            image={rick.image}
-            name={rick.name}
-            status={rick.status}
-            species={rick.species}
-            origin={rick.origin.name}
-            location={rick.location.name}
-          ></Character>
+          <Link to={`/characters/${rick.id}`}>
+            <Character
+              id={rick.id}
+              image={rick.image}
+              name={rick.name}
+              status={rick.status}
+              species={rick.species}
+              origin={rick.origin.name}
+              location={rick.location.name}
+            ></Character>
+          </Link>
         ))}
       </div>
     </div>

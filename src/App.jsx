@@ -1,46 +1,92 @@
 //import PersonList from "./PersonList";
 import RicksList from "./RicksList";
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Unit from "./Unit";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+import axios from "axios";
 
 export default function App() {
-  return <RicksList />;
+  //return <RicksList />;
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+          {/* <Redirect to="/characters" /> */}
+        </Route>
+        <Route path="/characters" exact>
+          <Characters />
+        </Route>
+        <Route path="/characters/:id">
+          <Units />
+        </Route>
+        <span className="font-mono text-6xl text-red-700">
+          <Route>404</Route>
+        </span>
+      </Switch>
+    </Router>
+  );
 }
-//{
-//   return (
-//     <Router>
-//       <div>
-//         <nav>
-//           <ul>
-//             <li></li>
-//             <li></li>
-//             <li></li>
-//           </ul>
-//         </nav>
-//         <Switch>
-//           <Route path="/">
-//             <Home />
-//           </Route>
-//           <Route path="/characters">
-//             <Characters />
-//           </Route>
-//           <Route path="/characters/:id">
-//             <About />
-//           </Route>
-//         </Switch>
-//       </div>
-//     </Router>
-//   );
-// }
 
-// function Home() {
-//   return (App = () => <RicksList />);
-// }
+function Home() {
+  return (
+    <span className="font-mono text-2xl text-white">
+      <Link to="/characters">Go to characters list</Link>
+    </span>
+  );
+}
 
-// function About() {
-//   return <h2>About</h2>;
-// }
+function Characters() {
+  return (
+    <div>
+      <ul>
+        <li className="font-mono text-2xl text-white">
+          <Link to="/">Go back to home page</Link>
+        </li>
+      </ul>
+      <RicksList />
+    </div>
+  );
+}
 
-// function Characters() {
-//   return <h2>Characters</h2>;
-// }
+function Units() {
+  const params = useParams();
+
+  const [character, setUnit] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`https://rickandmortyapi.com/api/character/${params.id}`)
+      .then((res) => {
+        setUnit(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [params.id]);
+
+  return (
+    <div>
+      <Unit
+        id={params.id}
+        name={character?.name}
+        status={character?.status}
+        species={character?.species}
+        type={character?.type}
+        gender={character?.gender}
+        origin={character?.origin.name}
+        location={character?.location.name}
+        image={character?.image}
+      />
+      <p className="font-mono text-2xl text-white">
+        <Link to="/characters">Go back to characters list</Link>
+      </p>
+    </div>
+  );
+}

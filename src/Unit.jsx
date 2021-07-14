@@ -1,11 +1,21 @@
-const Character = ({ id, image, name, status, species, origin, location }) => {
+const Unit = ({
+  id,
+  image,
+  name,
+  status,
+  species,
+  type,
+  gender,
+  origin,
+  location,
+}) => {
   return (
     <div
       key={id}
       className="m-3 font-mono text-xl text-gray-100 bg-gray-700 rounded-md"
     >
-      <div className="flex w-8/12">
-        <img src={image} alt="Couldn't load this." className="rounded-l-md" />
+      <div className="justify-center">
+        <img src={image} alt="Couldn't load this." className="rounded-sm" />
         <div className="flex">
           <span className="m-4">
             {name}
@@ -21,6 +31,15 @@ const Character = ({ id, image, name, status, species, origin, location }) => {
             )}
             <span> </span>
             {status} - {species}
+            <br />
+            <span className="text-gray-500 text-lg">Type:</span>
+            <br />
+            {type}
+            <br />
+            <br />
+            <span className="text-gray-500 text-lg">Gender:</span>
+            <br />
+            {gender}
             <br />
             <br />
             <span className="text-gray-500 text-lg">Last known location:</span>
@@ -40,4 +59,4 @@ const Character = ({ id, image, name, status, species, origin, location }) => {
   );
 };
 
-export default Character;
+export default Unit;
