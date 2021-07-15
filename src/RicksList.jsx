@@ -30,7 +30,7 @@ const RicksList = () => {
         {data
           .filter((value) => value.name.toLowerCase().includes(searchValue))
           .map((rick) => (
-            <Link to={`/characters/${rick.id}`}>
+            <Link to={`/characters/${rick.id}`} key={rick.id}>
               <Character
                 id={rick.id}
                 image={rick.image}
