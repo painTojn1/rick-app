@@ -1,60 +1,61 @@
 import React from "react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Character from "./Character";
 import { Link } from "react-router-dom";
+import Filter from "./Filter";
+import useRickAndMortyAPI from "./useRickAndMortyAPI";
 
 const RicksList = () => {
-  //const { id } = props;
-  //const [ricks, setRicks] = useState([]);
-
-  const [all, setAll] = useState([]);
-
+  const [searchValue, setSearchValue] = useState("");
+  const [timer, setTimer] = useState(null);
+  const query = { path: "character", id: null, page: 1 };
+  const [data, setPageNumber] = useRickAndMortyAPI(query);
   useEffect(() => {
-    //   axios
-    //     .get(`https://rickandmortyapi.com/api/character/1,2,3,4,5,6,7,8,9,10`)
-    //     .then((res) => {
-    //       console.log(res.data[1].name);
-    //       setRicks(res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
+    return () => clearTimeout(timer);
+  }, [timer]);
 
-    axios
-      .get(`https://rickandmortyapi.com/api/character`)
-      .then((res) => {
-        setAll(res.data.results);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  const searchHandler = (value) => {
+    timer && clearTimeout(timer);
+    const newTimer = setTimeout(() => {
+      setSearchValue(value.toLowerCase());
+      console.log(value);
+    }, 300);
+    setTimer(newTimer);
+  };
 
   return (
     <div className="mx-auto">
+      <Filter onValueChange={searchHandler} />
       <div className="grid grid-cols-3">
-        {/* {ricks.map((rick, idx, arr) => (
-        <Character id={rick.id} image={rick.image}>
-          {rick.name}
-          <button>BTN</button>
-        </Character>
-      ))} */}
-
-        {all.map((rick) => (
-          <Link to={`/characters/${rick.id}`}>
-            <Character
-              id={rick.id}
-              image={rick.image}
-              name={rick.name}
-              status={rick.status}
-              species={rick.species}
-              origin={rick.origin.name}
-              location={rick.location.name}
-            ></Character>
-          </Link>
-        ))}
+        {data
+          .filter((value) => value.name.toLowerCase().includes(searchValue))
+          .map((rick) => (
+            <Link to={`/characters/${rick.id}`}>
+              <Character
+                id={rick.id}
+                image={rick.image}
+                name={rick.name}
+                status={rick.status}
+                species={rick.species}
+                origin={rick.origin.name}
+                location={rick.location.name}
+              ></Character>
+            </Link>
+          ))}
       </div>
+      <button
+        className="font-mono text-gray-100"
+        onClick={() => setPageNumber((num) => num - 1)}
+      >
+        Hello
+      </button>
+      <br />
+      <button
+        className="font-mono text-gray-100"
+        onClick={() => setPageNumber((num) => num + 1)}
+      >
+        Hello
+      </button>
     </div>
   );
 };

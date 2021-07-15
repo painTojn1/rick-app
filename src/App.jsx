@@ -1,4 +1,3 @@
-//import PersonList from "./PersonList";
 import RicksList from "./RicksList";
 import React, { useState, useEffect } from "react";
 import Unit from "./Unit";
@@ -9,16 +8,14 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-import axios from "axios";
+import useRickAndMortyAPI from "./useRickAndMortyAPI";
 
 export default function App() {
-  //return <RicksList />;
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
           <Home />
-          {/* <Redirect to="/characters" /> */}
         </Route>
         <Route path="/characters" exact>
           <Characters />
@@ -57,19 +54,17 @@ function Characters() {
 
 function Units() {
   const params = useParams();
-
   const [character, setUnit] = useState();
+  const query = { path: "character", id: params.id, page: null };
+  const [data, setPageNumber] = useRickAndMortyAPI(query);
+
+  console.log(params);
+  console.log(character);
 
   useEffect(() => {
-    axios
-      .get(`https://rickandmortyapi.com/api/character/${params.id}`)
-      .then((res) => {
-        setUnit(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [params.id]);
+    setUnit(data);
+    console.log(data);
+  }, [data]);
 
   return (
     <div>
@@ -80,8 +75,8 @@ function Units() {
         species={character?.species}
         type={character?.type}
         gender={character?.gender}
-        origin={character?.origin.name}
-        location={character?.location.name}
+        origin={character?.origin?.name}
+        location={character?.location?.name}
         image={character?.image}
       />
       <p className="font-mono text-2xl text-white">
