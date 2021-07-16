@@ -14,7 +14,7 @@ const useRickAndMortyAPI = ({ path, id, page }) => {
       .catch((err) => {
         console.error(err);
       });
-  }, [pageNumber]);
+  }, [id, page, path, pageNumber]);
   return [data, setPageNumber];
 };
 

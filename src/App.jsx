@@ -56,7 +56,7 @@ function Units() {
   const params = useParams();
   const [character, setUnit] = useState();
   const query = { path: "character", id: params.id, page: null };
-  const [data, setPageNumber] = useRickAndMortyAPI(query);
+  const [data] = useRickAndMortyAPI(query);
 
   console.log(params);
   console.log(character);
