@@ -12,7 +12,7 @@ import useRickAndMortyAPI from "./useRickAndMortyAPI";
 
 export default function App() {
   return (
-    <Router>
+    <Router baseName={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/" exact>
           <Home />
