@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/rick-app/static/css/main.02e4f474.chunk.css",
+    "main.css": "/rick-app/static/css/main.ef140add.chunk.css",
     "main.js": "/rick-app/static/js/main.d69bde40.chunk.js",
     "main.js.map": "/rick-app/static/js/main.d69bde40.chunk.js.map",
     "runtime-main.js": "/rick-app/static/js/runtime-main.b2d37781.js",
@@ -8,13 +8,13 @@
     "static/js/2.fa1877a2.chunk.js": "/rick-app/static/js/2.fa1877a2.chunk.js",
     "static/js/2.fa1877a2.chunk.js.map": "/rick-app/static/js/2.fa1877a2.chunk.js.map",
     "index.html": "/rick-app/index.html",
-    "static/css/main.02e4f474.chunk.css.map": "/rick-app/static/css/main.02e4f474.chunk.css.map",
+    "static/css/main.ef140add.chunk.css.map": "/rick-app/static/css/main.ef140add.chunk.css.map",
     "static/js/2.fa1877a2.chunk.js.LICENSE.txt": "/rick-app/static/js/2.fa1877a2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b2d37781.js",
     "static/js/2.fa1877a2.chunk.js",
-    "static/css/main.02e4f474.chunk.css",
+    "static/css/main.ef140add.chunk.css",
     "static/js/main.d69bde40.chunk.js"
   ]
 }
